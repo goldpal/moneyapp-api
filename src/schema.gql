@@ -1,0 +1,92 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type IncomeRow {
+  id: Float
+  notionId: String
+  date: DateTime
+  amount: Float
+  currency: String
+  dateCreated: DateTime
+  dateLastUpdated: DateTime
+  dateDeleted: DateTime
+  deleted: Boolean
+  paymentMethod: String
+  paidBy: String
+  incomeType: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ExpenseRow {
+  id: Float
+  notionId: String
+  date: DateTime
+  amount: Float
+  currency: String
+  dateCreated: DateTime
+  dateLastUpdated: DateTime
+  dateDeleted: DateTime
+  deleted: Boolean
+  item: String
+  type: String
+  subType: String
+  paymentType: String
+}
+
+type IncomeGroupByQuery {
+  currency: String
+  date: String
+  dateCreated: String
+  dateLastUpdated: String
+  dateDeleted: String
+  deleted: String
+  startDate: DateTime
+  endDate: DateTime
+  sum: Float
+  count: Float
+  incomePaidBy: String
+  incomePaymentMethod: String
+  incomeType: String
+}
+
+type ExpenseGroupByQuery {
+  currency: String
+  date: String
+  dateCreated: String
+  dateLastUpdated: String
+  dateDeleted: String
+  deleted: String
+  startDate: DateTime
+  endDate: DateTime
+  sum: Float
+  count: Float
+  expenseType: String
+  expenseSubType: String
+  expensePaymentType: String
+}
+
+type AverageIncome {
+  type: String!
+  average: Float!
+}
+
+type TotalIncomeAndExpenses {
+  sum: Float!
+}
+
+type Query {
+  income(count: Int, sortDateBy: String, currency: String, date: DateTime, incomeType: String, paidBy: String, paymentMethod: String): [IncomeRow!]!
+  expense(count: Int, sortDateBy: String, paymentType: String, subType: String, type: String, item: String, currency: String, amount: Int, date: DateTime, id: Int): [ExpenseRow!]!
+  incomeGroupBy(endDate: DateTime, startDate: DateTime, valueType: String!, field: String!): [IncomeGroupByQuery!]!
+  expensesGroupBy(endDate: DateTime, startDate: DateTime, valueType: String!, field: String!): [ExpenseGroupByQuery!]!
+  averageIncome(endDate: DateTime!, startDate: DateTime!, type: String!): [AverageIncome!]!
+  averageExpenses(endDate: DateTime!, startDate: DateTime!): [AverageIncome!]!
+  incomeSum(endDate: DateTime, startDate: DateTime): [TotalIncomeAndExpenses!]!
+  expenseSum(endDate: DateTime, startDate: DateTime): [TotalIncomeAndExpenses!]!
+  netIncome(endDate: DateTime, startDate: DateTime): [TotalIncomeAndExpenses!]!
+}
